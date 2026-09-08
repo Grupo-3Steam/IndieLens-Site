@@ -1,0 +1,161 @@
+CREATE DATABASE IF NOT EXISTS indieLens;
+USE indieLens;
+
+-- Perfil
+CREATE TABLE IF NOT EXISTS perfil (
+  id_perfil INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  tipo VARCHAR(45) NULL,
+  descricao VARCHAR(100) NULL
+);
+
+-- Usuario
+CREATE TABLE IF NOT EXISTS usuario (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  id_perfil INT NOT NULL,
+  nome VARCHAR(50) NULL,
+  email VARCHAR(100) NULL,
+  senha VARCHAR(45) NULL,
+  CONSTRAINT fk_usuario_perfil1
+    FOREIGN KEY (id_perfil)
+    REFERENCES perfil (id_perfil)
+);
+
+-- Sessao Usuario
+CREATE TABLE IF NOT EXISTS sessao_usuario (
+  id_sessao INT NOT NULL,
+  id_usuario INT NOT NULL,
+  inicio_sessao DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  fim_sessao DATETIME NULL,
+  PRIMARY KEY (id_sessao, id_usuario),
+  CONSTRAINT fk_sessao_usuario_usuario1
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+);
+
+-- Log Usuario
+CREATE TABLE IF NOT EXISTS log_usuario (
+  id_log INT PRIMARY KEY NOT NULL,
+  id_usuario INT NOT NULL,
+  id_sessao INT NOT NULL,
+  tipo_evento VARCHAR(50) NULL,
+  descricao_evento VARCHAR(200) NULL,
+  CONSTRAINT fk_log_usuario_sessao_usuario1
+    FOREIGN KEY (id_sessao, id_usuario)
+    REFERENCES sessao_usuario (id_sessao, id_usuario)
+);
+
+-- Projeto Simulacao
+CREATE TABLE IF NOT EXISTS projeto_simulacao (
+  id_simulacao INT PRIMARY KEY NOT NULL,
+  id_usuario INT NOT NULL,
+  nome_projeto VARCHAR(100) NOT NULL,
+  data_lancamento DATE NOT NULL,
+  preco_estimado DECIMAL(8,2) NOT NULL,
+  generos VARCHAR(100) NULL,
+  tags VARCHAR(100) NULL,
+  score_viabilidade DECIMAL(5,2) NULL,
+  score_concorrencia DECIMAL(5,2) NULL,
+  preco_sugerido DECIMAL(8,2) NULL,
+  data_simulacao DATETIME NULL,
+  CONSTRAINT fk_projeto_simulacao_usuario1
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+);
+
+-- Jogo Main
+CREATE TABLE IF NOT EXISTS jogo_main (
+  id_jogo INT PRIMARY KEY NOT NULL,
+  nome VARCHAR(255) NULL,
+  data_lancamento DATE NULL,
+  preco DECIMAL(8,2) NULL,
+  proprietarios_estimados INT NULL,
+  idade_minima INT NULL,
+  desenvolvedor VARCHAR(45) NULL
+);
+
+-- Jogo Suporte
+CREATE TABLE IF NOT EXISTS jogo_suporte (
+  id_jogo INT PRIMARY KEY NOT NULL,
+  suporte_windows TINYINT NULL,
+  suporte_MAC TINYINT NULL,
+  suporte_linux TINYINT NULL,
+  idiomas_suportados TEXT NULL,
+  idiomas_suportados_audio TEXT NULL,
+  CONSTRAINT fk_jogo_suporte_jogo_main1
+    FOREIGN KEY (id_jogo)
+    REFERENCES jogo_main (id_jogo)
+);
+
+-- Jogo Metricas
+CREATE TABLE IF NOT EXISTS jogo_metricas (
+  id_jogo INT PRIMARY KEY NOT NULL,
+  peak_CCU INT NULL,
+  avaliacoes_positivas INT NULL,
+  avaliacoes_negativas INT NULL,
+  taxa_aprovacao DECIMAL(5,2) NULL,
+  nota_metacritic DECIMAL(5,2) NULL,
+  nota_usuarios DECIMAL(5,2) NULL,
+  qtd_dlc INT NULL,
+  qtd_recomendacoes INT NULL,
+  CONSTRAINT fk_jogo_metricas_jogo_main1
+    FOREIGN KEY (id_jogo)
+    REFERENCES jogo_main (id_jogo)
+);
+
+-- Jogo Playtime
+CREATE TABLE IF NOT EXISTS jogo_playtime (
+  id_jogo INT PRIMARY KEY NOT NULL,
+  media_horas_total INT NULL,
+  mediana_horas_total INT NULL,
+  media_horas_duas_semanas INT NULL,
+  mediana_horas_duas_semanas INT NULL,
+  CONSTRAINT fk_jogo_playtime_jogo_main
+    FOREIGN KEY (id_jogo)
+    REFERENCES jogo_main (id_jogo)
+);
+
+-- Jogo Detalhes
+CREATE TABLE IF NOT EXISTS jogo_detalhes (
+  id_jogo INT PRIMARY KEY NOT NULL,
+  jogo_anotacoes VARCHAR(45) NULL,
+  publicante VARCHAR(45) NULL,
+  descricao TEXT NULL,
+  tags VARCHAR(45) NULL,
+  generos VARCHAR(45) NULL,
+  categorias TEXT NULL,
+  CONSTRAINT fk_jogo_detalhes_jogo_main
+    FOREIGN KEY (id_jogo)
+    REFERENCES jogo_main (id_jogo)
+);
+
+-- Jogo Auxiliar
+CREATE TABLE IF NOT EXISTS jogo_auxiliar (
+  id_jogo INT PRIMARY KEY NOT NULL,
+  site_oficial VARCHAR(100) NULL,
+  email_suporte VARCHAR(100) NULL,
+  url_metacritic VARCHAR(100) NULL,
+  generos VARCHAR(45) NULL,
+  usuario_review VARCHAR(255) NULL,
+  CONSTRAINT fk_jogo_auxiliar_jogo_main
+    FOREIGN KEY (id_jogo)
+    REFERENCES jogo_main (id_jogo)
+);
+
+-- Analise Jogo
+CREATE TABLE IF NOT EXISTS analise_jogo (
+  id_analise INT NOT NULL,
+  id_jogo INT NOT NULL,
+  id_usuario INT NOT NULL,
+  media_CCU_concorrencia INT NULL,
+  preco_mediano_nicho DECIMAL(8,2) NULL,
+  taxa_aprovacao_nicho DECIMAL(5,2) NULL,
+  diagnostico_mercado VARCHAR(100) NULL,
+  data_analise DATETIME NULL,
+  PRIMARY KEY (id_analise, id_jogo),
+  CONSTRAINT fk_analise_jogo_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario),
+  CONSTRAINT fk_analise_jogo_jogo_main
+    FOREIGN KEY (id_jogo)
+    REFERENCES jogo_main (id_jogo)
+);
