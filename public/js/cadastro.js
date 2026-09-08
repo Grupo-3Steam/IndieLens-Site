@@ -60,3 +60,25 @@ function validarSenha(senha){
     //se bem que podemos dar uma tabela para o usuario validar o que está de errado né
     return false;
 }
+
+function validarEmail(email){
+    if(validarNulo(email)){return false;}
+
+    let especial = false, pontoDepois = false;
+
+    if (email.indexOf("@") != -1) {
+        especial = true;
+        let posicaoPonto = email.indexOf(".", email.indexOf("@"));
+        if(posicaoPonto != -1){
+            pontoDepois = true;
+        }
+    }  
+
+    if (especial && pontoDepois){
+        return true
+    } else {
+        // TODO returno onde está o erro
+    }
+
+    return false;
+}
