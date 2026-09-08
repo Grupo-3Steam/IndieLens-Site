@@ -8,8 +8,13 @@ function cadastrar(){
     let senha = senha_input.value;
     let senhaConfirmacao = confirmacao_senha_input.value;
 
-    console.log(validarEmail(email));
-    console.log(validarSenha(senha));
+    //validações simples
+    let nomeValido = (nome.length >= 1 && nome.length <= 50) ? true : false;
+    let senhasValidas = (senha === senhaConfirmacao) ? true : false;
+
+    if(nomeValido && validarEmail(email) && validarSenha(senha) && senhasValidas){
+        // TODO Realizar o POST aqui
+    }
 
 }
 
