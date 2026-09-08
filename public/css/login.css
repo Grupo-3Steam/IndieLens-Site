@@ -19,8 +19,6 @@ body {
     
 }
 
-
-
 .card-cadastro {
     width: 51%;
     height: 100vh;
@@ -38,13 +36,13 @@ body {
 .titulo {
     width: 55%;
     margin-bottom: 50px;
-}
 
-.titulo h1 {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    h1 {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
 }
 
 .formulario {
@@ -66,39 +64,33 @@ body {
     border: 2px solid #9cff00;
     background-color: #252525;
     transition:0.2s;
-}
 
-.campo:hover {
-   
-    transition:0.5s;
-    scale: 1.05;
-    box-shadow: 5px 5px 20px 2px #9cff00;
+    &:hover{
+        transition:0.5s;
+        scale: 1.05;
+        box-shadow: 5px 5px 20px 2px #9cff00;
+    }
 
-}
+    input {
+        width: 100%;
+        height: 100%;
+        padding-left: 21px;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: white;
+        font-size: 13px;
+    }
 
-.campo input {
-    width: 100%;
-    height: 100%;
+    input::placeholder{
+        color: white;
+    }
 
-    padding-left: 21px;
-
-    border: none;
-    outline: none;
-
-    background-color: transparent;
-    color: white;
-
-    font-size: 13px;
-}
-
-.campo input::placeholder {
-    color: white;
-}
-
-.campo i {
-    color: #9229e8;
-    font-size: 15px;
-    margin-right: 15px;
+    i {
+        color: #9229e8;
+        font-size: 15px;
+        margin-right: 15px;
+    }
 }
 
 .botao {
@@ -120,15 +112,13 @@ body {
     cursor: pointer;
     border-radius: 30px;
     transition:0.3s;
+
+    &:hover{
+        box-shadow: 0px 0px 20px 2px #9229e8;
+        transition:0.5s;
+        scale: 1.1;
+    }
 }
-
-.botao:hover {
-    box-shadow: 0px 0px 20px 2px #9229e8;
-    transition:0.5s;
-    scale: 1.1;
-}
-
-
 
 .imagem {
     width: 49%;
@@ -136,13 +126,12 @@ body {
     overflow: hidden;
 
     order: 1;
-}
 
-.imagem img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 .botao-saida {
@@ -155,10 +144,10 @@ body {
 
     z-index: 10;
     text-decoration: none;
-}
 
-.botao-saida:hover {
-    color: #9229e8;
+    &:hover{
+        color: #9229e8;
+    }
 }
 
 @media (max-width: 768px) {
@@ -176,22 +165,22 @@ body {
         width: 100%;
         height: 100%;
         z-index: 1;
-    }
 
-    .imagem::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(2, 2, 2, 0.8);
-        z-index: 1;
-    }
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(2, 2, 2, 0.8);
+            z-index: 1;
+        }
 
-    .imagem img {
-        filter: blur(8px);
-        transform: scale(1.1);
+        img {
+            filter: blur(8px);
+            transform: scale(1.1);
+        }
     }
 
     .card-cadastro {
@@ -218,13 +207,13 @@ body {
     .titulo {
         width: 100%;
         margin-bottom: 30px;
-    }
 
-    .titulo h1 {
-        font-size: 22px;
-        text-align: center;
+        h1 {
+            font-size: 22px;
+            text-align: center;
+        }
     }
-
+    
     .formulario {
         width: 100%;
     }
