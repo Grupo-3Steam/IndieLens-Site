@@ -5,6 +5,8 @@ var usuarioController = require("../controllers/usuarioController");
 
 router.post("/cadastrarUsuario",
     function(req,res){
-        usuarioController. // função de cadastrar
+        usuarioController.cadastrarUsuario(req,res);
     }
 );
+
+module.exports = router;

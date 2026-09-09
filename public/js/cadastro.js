@@ -8,18 +8,45 @@ function cadastrar(){
     let senha = senha_input.value;
     let senhaConfirmacao = confirmacao_senha_input.value;
 
+    //ALTERAR P/REQUISITO DE TIPO, HARDCODED NO MOMENTO
+    let tipo = 1;
+
     //validações simples
     let nomeValido = (nome.length >= 1 && nome.length <= 50) ? true : false;
     let senhasValidas = (senha === senhaConfirmacao) ? true : false;
 
     if(nomeValido && validarEmail(email) && validarSenha(senha) && senhasValidas){
-        // TODO Realizar o POST aqui
+        fetch("/usuarios/cadastrarUsuario",
+            {
+                method : "POST",
+                headers : { "Content-Type" : "application/json"},
+
+                body : JSON.stringify({
+                    nomeServer : nome,
+                    emailServer : email,
+                    senhaServer : senha,
+                    tipoServer : tipo
+                }),
+            }
+        ).then(
+            function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if(resposta.ok){
+                    setTimeout(() => { window.location = "login.html";}, "1000");
+                }
+            }
+        ).catch(
+            function(erro){
+                console.log(`Ocorreu um erro: ${erro}`);
+            }
+        );
     }
 
 }
 
 function validarNulo(input){
-    if(input.length <= 0){
+    if(input == null || input.length <= 0 || input == ""){
         return true;
     }
 
