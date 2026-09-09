@@ -135,6 +135,26 @@ body {
         color: #9229e8;
     }
 }
+.login-link {
+    width: 55%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-link p {
+    color: white;
+    font-size: 13px;
+}
+
+.login-link a {
+    color: #9cff00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
 
 @media (max-width: 768px) {
     .container {
@@ -204,4 +224,7 @@ body {
     .campo {
         background-color: rgba(37, 37, 37, 0.4);
     }
+    .login-link {
+    width: 100%;
+}
 }
