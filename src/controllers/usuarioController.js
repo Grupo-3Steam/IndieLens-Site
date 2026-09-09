@@ -20,4 +20,35 @@ function cadastrarUsuario(req, res){
         );
 }
 
-module.exports = { cadastrarUsuario }
+function autenticar(req,res){
+    let email = req.body.emailServer;
+    let senha = req.body.senhaServer;
+
+    usuarioModel.autenticar(email, senha)
+        .then(
+            function(resultado){
+                console.log(`Resultados Encontrados: ${resultado.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultado)}`);
+
+                if(resultado.length == 1){
+                    id = resultado[0].id_usuario,
+                    perfil = resultado[0].id_perfil,
+                    nome = resultado[0].nome,
+                    email = resultado[0].email,
+                    senha = resultado[0].senha
+                } else if (resultadoAutenticar.length == 0) {
+                    res.status(403).send(`Email e/ou senha inválido(s)`);
+                } else {
+                    res.status(403).send(`Mais de um usuário com o mesmo login e senha`);
+                }
+            }
+        ).catch(
+            function(erro){
+                console.log(erro);
+                console.log("Erro ao realizar Login: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+module.exports = { cadastrarUsuario, autenticar}

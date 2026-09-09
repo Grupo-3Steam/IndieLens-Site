@@ -13,6 +13,18 @@ function cadastrar (nome, email, perfil, senha) {
     return database.executar(instrucaoSQL);
 }
 
+function autenticar (email, senha){
+    console.log(`
+        Realizando validação de login:
+        Email: ${email},
+        Senha: ${senha}
+    `)
+
+    let instrucaoSQL = `SELECT id_usuario,id_perfil,nome,email,senha FROM usuario WHERE email = "${email}" AND senha = "${senha}";`;
+    return database.executar(instrucaoSQL);
+}
+
 module.exports = {
-    cadastrar
+    cadastrar,
+    autenticar
 }
