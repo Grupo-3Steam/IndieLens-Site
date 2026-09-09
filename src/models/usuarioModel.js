@@ -9,7 +9,7 @@ function cadastrar (nome, email, perfil, senha) {
         Senha: ${senha}
     `);
 
-    let instrucaoSQL = `INSERT INTO usuario (id_perfil, nome, email, senha) VALUES (${perfil}, ${nome}, ${email}, ${senha});`;
+    let instrucaoSQL = `INSERT INTO usuario (id_perfil, nome, email, senha) VALUES (${perfil}, "${nome}", "${email}", "${senha}");`;
     return database.executar(instrucaoSQL);
 }
 
