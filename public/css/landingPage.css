@@ -268,10 +268,17 @@ body {
     color: #aaff00;
 }
 
+.card-img {
+    width: 120px;
+    height: 80px;
+    overflow: hidden;
+}
+
 .card-img img {
-    height: 70px;
-    width: auto;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .card-InfoBase {
@@ -559,6 +566,14 @@ body {
 
     object-fit: cover;
     display: block;
+}
+
+#home,
+#jogosPopu,
+#generoPopu,
+#sobre-nos,
+#contato {
+    scroll-margin-top: 100px;
 }
 
 @media (max-width: 768px) {
