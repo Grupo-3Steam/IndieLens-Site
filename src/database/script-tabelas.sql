@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 
 -- Sessao Usuario
 CREATE TABLE IF NOT EXISTS sessao_usuario (
-  id_sessao INT NOT NULL,
+  id_sessao INT NOT NULL AUTO_INCREMENT,
   id_usuario INT NOT NULL,
   inicio_sessao DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   fim_sessao DATETIME NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS sessao_usuario (
 
 -- Log Usuario
 CREATE TABLE IF NOT EXISTS log_usuario (
-  id_log INT PRIMARY KEY NOT NULL,
+  id_log INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   id_usuario INT NOT NULL,
   id_sessao INT NOT NULL,
   tipo_evento VARCHAR(50) NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS log_usuario (
 
 -- Projeto Simulacao
 CREATE TABLE IF NOT EXISTS projeto_simulacao (
-  id_simulacao INT PRIMARY KEY NOT NULL,
+  id_simulacao INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   id_usuario INT NOT NULL,
   nome_projeto VARCHAR(100) NOT NULL,
   data_lancamento DATE NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS jogo_auxiliar (
 
 -- Analise Jogo
 CREATE TABLE IF NOT EXISTS analise_jogo (
-  id_analise INT NOT NULL,
+  id_analise INT NOT NULL AUTO_INCREMENT,
   id_jogo INT NOT NULL,
   id_usuario INT NOT NULL,
   media_CCU_concorrencia INT NULL,
@@ -159,3 +159,28 @@ CREATE TABLE IF NOT EXISTS analise_jogo (
     FOREIGN KEY (id_jogo)
     REFERENCES jogo_main (id_jogo)
 );
+
+-- visualizando os dados da TABELA
+SELECT * FROM perfil;
+SELECT * FROM usuario;
+SELECT * FROM sessao_usuario;
+SELECT * FROM log_usuario;
+
+SELECT * FROM jogo_main;
+SELECT * FROM jogo_metricas;
+SELECT * FROM jogo_suporte;
+SELECT * FROM projeto_simulacao;
+
+-- INSERINDO DADOS PARAR PREENCHRE A TABELA
+INSERT INTO perfil VALUES
+(1 , "USUARIO_TESTE", "Usuário com tipo de teste para que seja possivel realizar testes dentro do database"),
+(2 , "ADMIN", "Usuário com permissões administrativas de sistema, utilizado pelos desenvolvedores da aplicação"),
+(3 , "DESENVOLVEDOR", "Usuário com acessos envolvendo publicar, escanear e visualizar jogos de forma mais aprofundada"),
+(4 , "STREAMER", "Usuário com permissões mais básicas, tendo foco em uma HUD limpa e de fácil uso");
+
+-- INSERINDO USUARIOS
+INSERT INTO usuario (id_perfil, nome, email, senha) VALUES 
+(1, "UsuarioTeste", "EmailTeste@Teste.com", "SenhaTeste");
+
+-- CASO DE ALGUM BO
+-- DROP DATABASE indieLens;
