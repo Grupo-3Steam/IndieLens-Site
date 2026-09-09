@@ -17,10 +17,10 @@ function entrar(){
                 resposta.json().then( 
                     function(json){
                         console.log(json);
-                        sessionStorage.ID = json.id;
-                        sessionStorage.NOME = json.nome,
-                        sessionStorage.EMAIL = json.email,
-                        sessionStorage.PERFIL = json.perfil,
+                        sessionStorage.ID_USUARIO = json.id;
+                        sessionStorage.NOME_USUARIO = json.nome;
+                        sessionStorage.EMAIL_USUARIO = json.email;
+                        sessionStorage.PERFIL_USUARIO = json.perfil;
 
                         setTimeout(function () {
                             window.location = "dashboard.html";

@@ -31,12 +31,16 @@ function autenticar(req,res){
                 console.log(`Resultados: ${JSON.stringify(resultado)}`);
 
                 if(resultado.length == 1){
-                    id = resultado[0].id_usuario,
-                    perfil = resultado[0].id_perfil,
-                    nome = resultado[0].nome,
-                    email = resultado[0].email,
-                    senha = resultado[0].senha
-                } else if (resultadoAutenticar.length == 0) {
+                    res.json(
+                        {
+                            id : resultado[0].id_usuario,
+                            perfil : resultado[0].id_perfil,
+                            nome : resultado[0].nome,
+                            email : resultado[0].email
+                        }
+                    );
+                    
+                } else if (resultado.length == 0) {
                     res.status(403).send(`Email e/ou senha inválido(s)`);
                 } else {
                     res.status(403).send(`Mais de um usuário com o mesmo login e senha`);
